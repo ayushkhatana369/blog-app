@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}New Post{% endblock %}
+
+{% block content %}
+<h2>Add New Post</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+
+    <label>Title</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label>Category</label><br>
+    <select name="category_id">
+        <option value="">-- No Category --</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Tags</label><br>
+    {% for tag in tags %}
+        <label>
+            <input type="checkbox" name="tags" value="{{ tag.id }}">
+            {{ tag.name }}
+        </label><br>
+    {% endfor %}
+    <br>
+     <label>Post Image</label><br>
+<input type="file" name="image" accept="image/*">
+<br><br>
+     <label>
+    <input type="checkbox" name="is_published" checked>
+    Publish immediately
+</label>
+<br><br>
+
+<label>Content</label><br>
+<textarea name="content" rows="10" required></textarea><br><br>
+
+
+    <button type="submit">Publish</button>
+</form>
+{% endblock %}

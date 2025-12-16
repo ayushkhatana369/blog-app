@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<article>
+    
+    <h2 style="margin-bottom:15px;">
+    {{ post.title }}
+</h2>
+
+
+    {% if post.image %}
+        <img
+            src="{{ url_for('static', filename='uploads/posts/' ~ post.image) }}"
+            alt="{{ post.title }}"
+            style="max-width:100%; border-radius:6px; margin:15px 0;"
+        >
+    {% endif %}
+
+
+    {% if post.category %}
+        <small>
+            Category:
+            <a href="{{ url_for('category_view', name=post.category.name) }}">
+                {{ post.category.name }}
+            </a>
+        </small><br>
+    {% endif %}
+
+    {% if post.tags %}
+        <small>
+            Tags:
+            {% for tag in post.tags %}
+                <a href="{{ url_for('tag_view', name=tag.name) }}">
+                    #{{ tag.name }}
+                </a>
+            {% endfor %}
+        </small><br>
+    {% endif %}
+
+    <small>
+        {{ post.created_at.strftime('%Y-%m-%d') }} • {{ post.reading_time() }}
+    </small>
+
+    <div style="margin-top:20px;">
+        {{ post.content | markdown | safe }}
+    </div>
+</article>
+
+<hr>
+
+<!-- 💬 COMMENTS SECTION -->
+<h3>Comments</h3>
+
+{% if post.comments %}
+    {% for comment in post.comments %}
+        <div style="margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+            <strong>{{ comment.author or "Anonymous" }}</strong>
+            <small> • {{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+
+            {% if current_user.is_authenticated %}
+                <form
+                    method="POST"
+                    action="{{ url_for('delete_comment', comment_id=comment.id) }}"
+                    style="display:inline;"
+                >
+                    <button type="submit" style="color:red; margin-left:10px;">
+                        Delete
+                    </button>
+                </form>
+            {% endif %}
+
+            <p>{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No comments yet. Be the first!</p>
+{% endif %}
+
+<hr>
+
+<!-- ✍️ ADD COMMENT FORM -->
+<h4>Add a comment</h4>
+
+<form method="POST" action="{{ url_for('add_comment', post_id=post.id) }}">
+    <input
+        type="text"
+        name="author"
+        placeholder="Your name (optional)"
+    >
+    <br><br>
+
+    <textarea
+        name="content"
+        rows="4"
+        required
+        placeholder="Write your comment..."
+    ></textarea>
+    <br><br>
+
+    <button type="submit">Post Comment</button>
+</form>
+
+{% endblock %}

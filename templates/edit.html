@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<h2>Edit Post</h2>
+
+<form method="POST">
+
+    <label>Title</label><br>
+    <input type="text" name="title" value="{{ post.title }}" required><br><br>
+
+    <label>Category</label><br>
+    <select name="category_id">
+        <option value="">-- No Category --</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}"
+                {% if post.category and post.category.id == category.id %}
+                    selected
+                {% endif %}
+            >
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Tags</label><br>
+    {% for tag in tags %}
+        <label>
+            <input type="checkbox" name="tags" value="{{ tag.id }}"
+                {% if tag in post.tags %}checked{% endif %}
+            >
+            {{ tag.name }}
+        </label><br>
+    {% endfor %}
+    <br>
+
+    <label>Content</label><br>
+    <textarea name="content" rows="10" required>{{ post.content }}</textarea><br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+<hr>
+
+<form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}">
+    <button type="submit" style="color:red">Delete Post</button>
+</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<h2>Search Results</h2>
+
+{% if query %}
+    <p>Results for "<strong>{{ query }}</strong>"</p>
+{% endif %}
+
+{% if posts %}
+    {% for post in posts %}
+        <article>
+            <h3>
+                <a href="{{ url_for('post_detail', post_id=post.id) }}">
+                    {{ post.title }}
+                </a>
+            </h3>
+            <small>{{ post.created_at.strftime('%Y-%m-%d') }}</small>
+            <div>
+                {{ post.content | markdown | safe }}
+            </div>
+        </article>
+    {% endfor %}
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+{% endblock %}

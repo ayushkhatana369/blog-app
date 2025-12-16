@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Write a Post{% endblock %}
+
+{% block content %}
+<h2>Write a New Post</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- Title -->
+    <label for="title">Title</label><br>
+    <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        style="width:100%; padding:8px;"
+    >
+    <br><br>
+
+    <!-- Category -->
+    <label for="category">Category</label><br>
+    <select
+        id="category"
+        name="category_id"
+        style="width:100%; padding:8px;"
+    >
+        <option value="">-- No Category --</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <!-- Tags -->
+    <label>Tags</label><br>
+    <div style="margin-bottom:15px;">
+        {% for tag in tags %}
+            <label style="margin-right:12px;">
+                <input
+                    type="checkbox"
+                    name="tags"
+                    value="{{ tag.id }}"
+                >
+                {{ tag.name }}
+            </label>
+        {% endfor %}
+    </div>
+
+    <!-- Image Upload -->
+    <label for="image">Post Image</label><br>
+    <input
+        type="file"
+        id="image"
+        name="image"
+        accept="image/*"
+    >
+    <br><br>
+
+    <!-- Publish Checkbox -->
+    <label>
+        <input
+            type="checkbox"
+            name="is_published"
+            checked
+        >
+        Publish immediately
+    </label>
+    <br><br>
+
+    <!-- Content -->
+    <label for="content">Content</label><br>
+    <textarea
+        id="content"
+        name="content"
+        rows="12"
+        required
+        style="width:100%; padding:10px;"
+        placeholder="Write your post in Markdown..."
+    ></textarea>
+    <br><br>
+
+    <!-- Submit -->
+    <button type="submit">
+        Publish Post
+    </button>
+
+</form>
+
+{% endblock %}

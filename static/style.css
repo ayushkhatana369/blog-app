@@ -1,0 +1,269 @@
+/* ===== Base ===== */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== Navbar ===== */
+header {
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+body.dark header {
+    background: #1e1e1e;
+    border-bottom: 1px solid #333;
+}
+
+.nav-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+header nav a:last-child {
+    margin-right: 0;
+}
+
+#theme-toggle {
+    margin-left: 10px;
+    font-size: 16px;
+    padding: 6px 10px;
+}
+
+/* ===== Main Layout ===== */
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* ===== Footer ===== */
+footer {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+/* ===== Headings ===== */
+h1, h2, h3 {
+    color: #222;
+}
+
+/* ===== Links ===== */
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Blog posts ===== */
+article {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+small {
+    color: #777;
+}
+
+/* ===== Forms ===== */
+form input[type="text"],
+form input[type="password"],
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+button {
+    background: #0077cc;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #005fa3;
+}
+
+/* Danger button */
+button[style*="red"] {
+    background: #cc0000;
+}
+
+button[style*="red"]:hover {
+    background: #a30000;
+}
+
+/* ===== Dark Mode ===== */
+body.dark {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark article,
+body.dark footer {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border-color: #2a2a2a;
+}
+
+body.dark a {
+    color: #4da3ff;
+}
+
+body.dark small {
+    color: #aaa;
+}
+
+body.dark button {
+    background: #4da3ff;
+}
+
+body.dark button:hover {
+    background: #1f7ae0;
+}
+
+body.dark button[style*="red"] {
+    background: #ff5555;
+}
+
+body.dark button[style*="red"]:hover {
+    background: #cc0000;
+}
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+
+    /* Navbar */
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    header nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    header nav a {
+        margin-right: 10px;
+    }
+
+    /* Main content */
+    main {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    /* Blog posts */
+    article {
+        padding: 15px;
+    }
+
+    /* Headings */
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+}
+nav form {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+nav form input {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.pagination a {
+    margin: 0 10px;
+    font-weight: bold;
+}
+/* ===== Code Blocks (Prism.js) ===== */
+
+pre {
+    background: #2d2d2d;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+code {
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: 14px;
+}
+
+/* Inline code */
+p code {
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Dark mode inline code */
+body.dark p code {
+    background: #333;
+    color: #f8f8f2;
+}
+article img {
+    display: block;
+}
+/* Fix post title visibility */
+article h2 {
+    color: #ffffff;
+}
+article img {
+    margin-top: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
