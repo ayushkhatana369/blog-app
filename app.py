@@ -22,14 +22,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
-@app.before_first_request
-def setup_database():
+# ✅ Flask 3.x compatible DB initialization
+with app.app_context():
     db.create_all()
+
+    # Create default admin user if not exists
     if not User.query.filter_by(username="admin").first():
         admin = User(username="admin")
         admin.set_password("admin123")
         db.session.add(admin)
         db.session.commit()
+
 
 
 
