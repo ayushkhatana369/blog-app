@@ -23,16 +23,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 # ✅ Flask 3.x compatible DB initialization
-with app.app_context():
-    db.create_all()
-
-    # Create default admin user if not exists
-    if not User.query.filter_by(username="admin").first():
-        admin = User(username="admin")
-        admin.set_password("admin123")
-        db.session.add(admin)
-        db.session.commit()
-
 
 
 
@@ -293,9 +283,19 @@ def write_post():
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
+
+    # 1. Delete comments first
+    Comment.query.filter_by(post_id=post.id).delete()
+
+    # 2. Clear tag associations (many-to-many)
+    post.tags.clear()
+
+    # 3. Delete the post itself
     db.session.delete(post)
     db.session.commit()
+
     return redirect(url_for("index"))
+
 
 @app.route("/admin/dashboard")
 @login_required
@@ -327,5 +327,15 @@ def admin_dashboard():
 
 # ================= START =================
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+
+        if not User.query.filter_by(username="admin").first():
+            admin = User(username="admin")
+            admin.set_password("admin123")
+            db.session.add(admin)
+            db.session.commit()
+
     app.run(debug=True)
+
 
