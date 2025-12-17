@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import os
+os.makedirs("instance", exist_ok=True)
 from werkzeug.utils import secure_filename
 from models import db, Post, User, Category, Tag, Comment
 import markdown

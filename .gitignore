@@ -27,4 +27,5 @@ Thumbs.db
 
 # Flask / SQLite
 instance/
+*.sqbpro
 *.db
